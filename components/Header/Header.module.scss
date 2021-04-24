@@ -1,0 +1,60 @@
+@import '../../styles/mixin.scss';
+
+@mixin item {
+  cursor: pointer;
+  padding: 15px;
+  font-size: medium;
+  h5 {
+    margin: 0;
+    padding: 10px 0 10px 0;
+    border-bottom: 2px solid transparent;
+  }
+}
+
+.container {
+  padding: 0 50px;
+  .header_top {
+    @include flex_direction(row);
+    @include justify_content(space-between);
+    @include align_items(center);
+    .title_wrap {
+      cursor: pointer;
+      height: 100%;
+      p:first-child {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 30px;
+        font-weight: 500;
+        padding: 15px;
+      }
+    }
+    .top_right_items {
+      @include flex_direction(row);
+      .item_focus {
+        @include item();
+        h5 {
+          border-bottom-color: black;
+        }
+      }
+      .item {
+        @include item();
+      }
+    }
+  }
+  .header_middle {
+    .middle_left_items {
+      @include justify_content(flex-start);
+      .left_menu_items {
+        @include flex_direction(row);
+        .item_focus {
+          @include item();
+          h5 {
+            border-bottom-color: black;
+          }  
+        }
+        .item {
+          @include item();
+        }
+      }
+    }
+  }
+}
