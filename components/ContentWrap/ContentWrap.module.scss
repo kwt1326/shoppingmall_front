@@ -2,6 +2,7 @@
 
 .container {
   @include center_mid();
+  overflow: auto;
   min-width: 1024px;
   padding: 0 50px;
   .content_wrap {
