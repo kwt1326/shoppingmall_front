@@ -8,10 +8,10 @@ const config = {
   target: 'node',
   mode: 'production',
   entry: {
-    server: path.resolve(__dirname, 'server/index.ts'),
+    server: path.resolve(__dirname, '../server/index.ts'),
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: '[name].js', // name: 'server'
   },
   resolve: {
@@ -27,11 +27,26 @@ const config = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          configFile: 'tsconfig.server.json',
+          configFile: path.resolve(__dirname, 'tsconfig.server.json'),
         }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              // Prefer `dart-sass`
+              implementation: require("sass"),
+            },
+          },
+        ],
       }
     ]
   },
+  plugins: [
+  ]
 }
 
 if (env === 'development') {

@@ -1,18 +1,19 @@
 const path = require('path');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
-
+console.log(env)
 const config = {
   name: 'client',
   target: 'web',
   mode: 'production',
   entry: {
-    client: path.resolve(__dirname, 'client/index.tsx'),
+    client: path.resolve(__dirname, '../client/index.tsx'),
   },
   output: {
-    path: path.resolve(__dirname, 'dist/static'),
+    path: path.resolve(__dirname, '../dist/static'),
     filename: '[name].[contenthash].js',
     publicPath: '',
   },
@@ -25,14 +26,33 @@ const config = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          configFile: 'tsconfig.client.json',
+          configFile: path.resolve(__dirname, 'tsconfig.client.json'),
         }
+      },
+      {
+        test: /\.s[ac]ss$/i,
+        use: [
+          env === 'production' ? MiniCssExtractPlugin.loader : "style-loader",
+          "css-loader",
+          {
+            loader: "sass-loader",
+            options: {
+              // Prefer `dart-sass`
+              implementation: require("sass"),
+              sourceMap: true,
+            },
+          },
+        ],
       }
     ]
   },
   plugins: [
     new CleanWebpackPlugin(),
     new WebpackManifestPlugin(),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
+      chunkFilename: "[id].css",
+    }),
   ]
 }
 
