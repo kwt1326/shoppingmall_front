@@ -3,19 +3,21 @@ const nodeExternals = require('webpack-node-externals');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
+// target : node
 const config = {
   name: 'server',
   target: 'node',
   mode: 'production',
   entry: {
-    server: path.resolve(__dirname, '../server/index.ts'),
+    server: path.resolve(__dirname, '../server/index.tsx'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     filename: '[name].js', // name: 'server'
+    libraryTarget: 'commonjs2',
   },
   resolve: {
-    extensions: ['.ts', '.tsx'],
+    extensions: ['.ts', '.tsx', 'js'],
   },
   externals: [nodeExternals()],
   node: {
@@ -27,7 +29,7 @@ const config = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          configFile: path.resolve(__dirname, 'tsconfig.server.json'),
+          configFile: '../config/tsconfig.server.json',
         }
       },
       {

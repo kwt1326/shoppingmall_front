@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:server": "NODE_ENV=production webpack --config ./config/webpack.server.config.js",
-    "build:client": "NODE_ENV=production webpack --config ./config/webpack.client.config.js",
+    "build:server": "webpack --config ./config/webpack.server.config.js",
+    "build:client": "webpack --config ./config/webpack.client.config.js",
+    "build:dev": "NODE_ENV=development npm run build:client && NODE_ENV=development npm run build:server",
     "prod:start": "npm run build:client && npm run build:server && PORT=3000 NODE_ENV=production node ./dist/server.js",
-    "start": "PORT=3000 NODE_ENV=development node server/develop.js"
+    "start": "npm run build:dev && PORT=3000 NODE_ENV=development node ./dist/server.js"
   },
   "author": "",
   "license": "ISC",
@@ -27,13 +28,17 @@
     "css-loader": "^6.2.0",
     "fibers": "^5.0.0",
     "mini-css-extract-plugin": "^2.1.0",
+    "nodemon": "^2.0.12",
     "sass": "^1.36.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
     "ts-loader": "^9.2.4",
+    "ts-node": "^10.1.0",
     "typescript": "^4.3.5",
     "webpack": "^5.46.0",
     "webpack-cli": "^4.7.2",
+    "webpack-dev-middleware": "^5.0.0",
+    "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^3.1.1",
     "webpack-node-externals": "^3.0.0"
   },

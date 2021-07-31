@@ -1,21 +1,26 @@
 const path = require('path');
+const webpack = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
-console.log(env)
+
+// target : client (web)
 const config = {
   name: 'client',
   target: 'web',
   mode: 'production',
   entry: {
-    client: path.resolve(__dirname, '../client/index.tsx'),
+    client: [
+      path.resolve(__dirname, '../client/index.tsx'),
+      'webpack-hot-middleware/client?reload=true',
+    ]
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
     filename: '[name].[contenthash].js',
-    publicPath: '',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js'],
@@ -26,7 +31,7 @@ const config = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
-          configFile: path.resolve(__dirname, 'tsconfig.client.json'),
+          configFile: '../config/tsconfig.client.json',
         }
       },
       {
@@ -64,6 +69,10 @@ if (env === 'development') {
       ...config.output,
       filename: '[name].js', // hash 제거
     },
+    plugins: [
+      ...config.plugins,
+      new webpack.HotModuleReplacementPlugin(),
+    ]
   })
 }
 
