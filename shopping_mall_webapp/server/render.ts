@@ -7,9 +7,7 @@ export default function renderHTML(component: string, src: string) {
         <title>Welcome The Shop!</title>
       </head>
       <body>
-        <div id="react-root">
-          ${component}
-        </div>
+        <div id="react-root">${component}</div>
         <script defer="defer" src=${src}></script>
       </body>
     </html>`

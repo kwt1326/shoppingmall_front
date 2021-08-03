@@ -13,8 +13,7 @@ const config = {
   mode: 'production',
   entry: {
     client: [
-      path.resolve(__dirname, '../client/index.tsx'),
-      'webpack-hot-middleware/client?reload=true',
+      path.resolve(__dirname, '../src/index.tsx'),
     ]
   },
   output: {
@@ -65,6 +64,17 @@ if (env === 'development') {
   Object.assign(config, {
     mode: 'development',
     devtool: 'source-map',
+    entry: {
+      client: [
+        'webpack-hot-middleware/client?reload=true',
+        path.resolve(__dirname, '../src/index.tsx'),
+      ]
+    },
+    devServer: {
+      contentBase: "dist",
+      hot: true,
+      stats: { colors: true }
+    },
     output: {
       ...config.output,
       filename: '[name].js', // hash 제거

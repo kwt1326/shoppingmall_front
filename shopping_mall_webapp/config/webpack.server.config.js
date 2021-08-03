@@ -47,8 +47,6 @@ const config = {
       }
     ]
   },
-  plugins: [
-  ]
 }
 
 if (env === 'development') {
