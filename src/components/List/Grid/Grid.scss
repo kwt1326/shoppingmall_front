@@ -1,0 +1,22 @@
+@import '../../../assets/styles/mixin.scss';
+
+.container {
+  .grid {
+    display: grid;
+    grid-template-areas: "a a a";
+    grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    padding: 20px;
+  }
+  .grid_item {
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    border-radius: 20px;
+    padding: 20px;
+
+    min-width: 100px;
+    min-height: 100px;
+  }
+}
