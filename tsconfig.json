@@ -1,0 +1,29 @@
+{ // intellisense 
+  "compilerOptions": {
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "ESNext",
+    ],
+    "module": "ESNext",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "typeRoots": [
+      "config"
+    ],
+    "types": [
+      "node"
+    ],
+    "include": [
+      "/",
+    ],
+  }
+}

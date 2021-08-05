@@ -1,8 +1,8 @@
 {
   "name": "shopping_mall_webapp",
   "version": "1.0.0",
-  "description": "",
-  "main": "",
+  "description": "typescript + webpack 5 + react + express(ssr server)",
+  "main": "config/index.d.ts",
   "scripts": {
     "build:server": "webpack --config ./config/webpack.server.config.js",
     "build:client": "webpack --config ./config/webpack.client.config.js",
@@ -26,6 +26,8 @@
     "@types/react-router-dom": "^5.1.8",
     "@types/redux": "^3.6.0",
     "@types/webpack-env": "^1.16.2",
+    "@typescript-eslint/eslint-plugin": "^4.29.0",
+    "@typescript-eslint/parser": "^4.29.0",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^4.3.0",
