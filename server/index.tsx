@@ -14,8 +14,8 @@ const webpackClientConfig = require('../config/webpack.client.config.js');
 const webpackServerConfig = require('../config/webpack.server.config.js');
 
 const server = express();
-const port = process.env.PORT;
-const env = process.env.NODE_ENV;
+const port = process.env.PORT || 3000;
+const env = process.env.NODE_ENV || "production";
 
 server.listen(port, () => console.log(`listening ${port} port`));
 
