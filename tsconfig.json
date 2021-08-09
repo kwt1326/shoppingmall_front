@@ -1,31 +1,29 @@
-{
+{ // intellisense 
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "esnext",
-    "target": "esnext",
-    "jsx": "preserve",
-    "sourceMap": false,
-    "moduleResolution": "node",
     "lib": [
       "dom",
       "dom.iterable",
-      "esnext",
+      "ESNext",
     ],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
+    "module": "ESNext",
+    "target": "es5",
+    "jsx": "react",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "esModuleInterop": true,
+    "skipLibCheck": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
-  },
-  "exclude": [
-    ".next"
-  ],
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    "typeRoots": [
+      "config"
+    ],
+    "types": [
+      "node"
+    ],
+    "include": [
+      "/",
+    ],
+  }
 }
