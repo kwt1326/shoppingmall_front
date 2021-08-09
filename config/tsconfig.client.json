@@ -1,0 +1,27 @@
+{
+  "include": [
+    "../src",
+    "index.d.ts"
+  ],
+  "compilerOptions": {
+    // "lib": [
+    //   "dom",
+    //   "dom.iterable",
+    //   "ESNext",
+    // ],
+    // "module": "ESNext", // generate ES modules
+    "module": "es6",
+    "target": "es5", // target ES5 API
+    "jsx": "react", // compile JSX to React.createElement statements for browser
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true,
+    // "typeRoots": ["../@types", "@types"],
+    "types": [ "node" ]
+  }
+}
