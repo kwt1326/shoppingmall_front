@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
-
+console.log(process.env.NODE_ENV)
 // target : client (web)
 const config = {
   name: 'client',
@@ -71,7 +71,18 @@ const config = {
       filename: "[name].css",
       chunkFilename: "[name].css",
     }),
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          chunks: 'initial',
+          minChunks: 2,
+        },
+      },
+    },
+  },
 }
 
 if (env === 'development') {
@@ -91,7 +102,8 @@ if (env === 'development') {
     plugins: [
       ...config.plugins,
       new webpack.HotModuleReplacementPlugin(),
-    ]
+    ],
+    optimization: {}
   })
 }
 

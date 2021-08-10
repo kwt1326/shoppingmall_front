@@ -19,9 +19,9 @@ const env = process.env.NODE_ENV || "production";
 
 server.listen(port, () => console.log(`listening ${port} port`));
 
-if (env === 'development') {
-  const compiler = webpack([webpackClientConfig, webpackServerConfig]);
+const compiler = webpack([webpackClientConfig, webpackServerConfig]);
 
+if (env === 'development') {
   server.use(webpackDevMiddleware(compiler, { publicPath: webpackClientConfig.output.publicPath }));
   server.use(webpackHotMiddleware(compiler.compilers[0]));
 }
@@ -38,5 +38,10 @@ server.get('/', (req, res) => {
       <App />
     </StaticRouter>
   );
-  res.send(renderHTML(component, assets['client.js']));
+  res.send(renderHTML(component, env === 'development' ? {
+    src: assets['client.js'],
+  } : {
+    src: assets['client.js'],
+    style: 'client.css',
+  }));
 })

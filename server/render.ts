@@ -1,4 +1,4 @@
-export default function renderHTML(component: string, src: string) {
+export default function renderHTML(component: string, assets: { src: string, style?: string }) {
   return (
     `<!DOCTYPE html>
     <html>
@@ -18,10 +18,11 @@ export default function renderHTML(component: string, src: string) {
           content="Fashion & Passion Shop Portfolio by Kim wontae"
         />
         <title>Welcome The Shop!</title>
+        ${assets.style ? `<link rel="stylesheet" type="text/css" href=${assets.style}>` : ''}
       </head>
       <body>
         <div id="react-root">${component}</div>
-        <script defer="defer" src=${src}></script>
+        <script defer="defer" src=${assets.src}></script>
       </body>
     </html>`
   )
