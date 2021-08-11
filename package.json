@@ -10,6 +10,7 @@
     "build:client:dev": "NODE_ENV=development PORT=3000 webpack --config ./config/webpack.client.config.js",
     "build:dev": "npm run build:client:dev && npm run build:server:dev",
     "build": "npm run build:client && npm run build:server",
+    "start:prod": "NODE_ENV=production PORT=3000 node ./dist/server.js",
     "start": "npm run build:dev && nodemon --watch ./server --watch ./src --exec 'node ./dist/server.js -e ts'"
   },
   "author": "wontae Kim",

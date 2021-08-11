@@ -4,5 +4,5 @@ RUN rm -rf node_modules
 WORKDIR $WORKDIRPATH
 COPY . $WORKDIRPATH
 RUN npm i
-CMD [ "PORT=3000" ]
-ENTRYPOINT [ "npm", "run", "build" ]
+RUN npm run build
+ENTRYPOINT [ "npm", "run", "start:prod" ]
