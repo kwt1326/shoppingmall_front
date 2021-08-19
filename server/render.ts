@@ -18,7 +18,7 @@ export default function renderHTML(component: string, assets: { src: string, sty
           content="Fashion & Passion Shop Portfolio by Kim wontae"
         />
         <title>Welcome The Shop!</title>
-        ${assets.style ? `<link rel="stylesheet" type="text/css" href=${assets.style}>` : ''}
+        <link rel="stylesheet" type="text/css" href=${assets.style}>
       </head>
       <body>
         <div id="react-root">${component}</div>
