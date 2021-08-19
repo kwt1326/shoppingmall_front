@@ -3,8 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
+import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
+import { createStore } from 'redux';
 import App from '../src/app';
+import reducer from '../src/store/reducers';
 import renderHTML from './render';
 
 const webpack = require('webpack');
@@ -33,15 +36,18 @@ const manifest = fs.readFileSync(path.join(__dirname, 'static/manifest.json'), '
 const assets = JSON.parse(manifest);
 
 server.get('/', (req, res) => {
+  const store = createStore(reducer);
   const component = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} context={{}}>
-      <App />
-    </StaticRouter>
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={{}}>
+        <App />
+      </StaticRouter>
+    </Provider>
   );
   res.send(renderHTML(component, env === 'development' ? {
     src: assets['client.js'],
   } : {
     src: assets['client.js'],
-    style: 'client.css',
+    style: assets['client.css'],
   }));
 })

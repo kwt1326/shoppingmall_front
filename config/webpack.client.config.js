@@ -3,9 +3,11 @@ const webpack = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
-console.log(process.env.NODE_ENV)
+console.info('build target : ' + process.env.NODE_ENV)
+
 // target : client (web)
 const config = {
   name: 'client',
@@ -55,7 +57,15 @@ const config = {
           },
         ],
       },
+      env === 'development' ?
       {
+        test: /\.tsx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'es2015',
+        }
+      } : {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
@@ -103,7 +113,21 @@ if (env === 'development') {
       ...config.plugins,
       new webpack.HotModuleReplacementPlugin(),
     ],
-    optimization: {}
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: 'es2015', // Syntax to compile to (see options below for possible values)
+          css: true
+        })
+      ]
+    }
+  })
+  config.module.rules[0].use.push({
+    loader: 'esbuild-loader',
+    options: {
+      loader: 'css',
+      minify: true
+    }
   })
 }
 

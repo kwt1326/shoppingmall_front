@@ -1,12 +1,25 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import wrapper from './store';
+import Modal from './components/Modal';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import ContentWrap from './components/ContentWrap';
 import Home from './pages/Home';
+import reducer from './store/reducers';
+import './assets/styles/globals.scss'
+
 
 export default function App() {
+  const store = createStore(reducer);
+
   return (
-    <div>
-      test12345678
-      <Home />
-    </div>
+    <Fragment>
+      <Provider store={store}>
+        <Home />
+      </Provider>
+    </Fragment>
   )
 }
 
