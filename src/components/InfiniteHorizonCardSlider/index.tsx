@@ -12,7 +12,8 @@ type PropsType = {
   useAuto?: boolean;
   useScale?: boolean;
   usePaging?: boolean;
-  useBannerStyle?: boolean;
+  useButton?: boolean;
+  useBannerStyle?: { width: number };
   lockBoolean?: boolean;
   cardStyle?: React.CSSProperties;
   containerStyle?: React.CSSProperties;
@@ -231,14 +232,15 @@ class InfiniteHorizonCardSlider extends Component<PropsType, StateType> {
 
   getDefaultStyle = () => {
     if (this.props.useBannerStyle) {
+      const width = this.props.useBannerStyle.width;
       return {
-        cardWidth: 1024,
+        cardWidth: width,
         containerStyle: {
-          width: 1024,
+          width,
           height: 400
         },
         cardStyle: {
-          width: 1024,
+          width,
           height: 400,
           padding: 0,
           paddingBottom: 30,
@@ -254,6 +256,7 @@ class InfiniteHorizonCardSlider extends Component<PropsType, StateType> {
     const {
       useScale,
       usePaging,
+      useButton,
       cardStyle,
       containerStyle,
     } = this.props;
@@ -287,13 +290,30 @@ class InfiniteHorizonCardSlider extends Component<PropsType, StateType> {
         {
           usePaging
           && (
-            <div className={styles.dot_paging}>
+            <section className={styles.dot_paging}>
               {
                 [...Array(this.props.children.length)].map((_elem, i) => {
                   return <div key={i} className={this.state.currentIndex === i ? styles.dot_selected : styles.dot} />
                 })
               }
-            </div>
+            </section>
+          )
+        }
+        {
+          useButton
+          && (
+            <section className={styles.slide_buttons_wrap}>
+              <div
+                className={styles.slide_btn_left}
+                style={{ marginLeft: '60px' }}
+                onClick={() => this.slide(false)}
+              >{'<'}</div>
+              <div
+                className={styles.slide_btn_right}
+                style={{ marginRight: '60px' }}
+                onClick={() => this.slide(true)}
+              >{'>'}</div>
+            </section>
           )
         }
       </div>

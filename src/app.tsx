@@ -1,14 +1,18 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import wrapper from './store';
-import Modal from './components/Modal';
+import GlobalWrap from './components/GlobalWrap';
+import ContentWrap from './components/ContentWrap';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import ContentWrap from './components/ContentWrap';
-import Home from './pages/Home';
+import Modal from './components/Modal';
 import reducer from './store/reducers';
+
+// pages
+import Home from './pages/Home';
+
+// style(global)
 import './assets/styles/globals.scss'
 
 
@@ -18,13 +22,15 @@ function App() {
   return (
     <Provider store={store}>
       <Modal />
-      <Header />
-      <ContentWrap>
-        <Switch>
-          <Route exact path="/home" render={props => <Home {...props} />} />
-        </Switch>
-      </ContentWrap>
-      <Footer />
+      <GlobalWrap>
+        <Header />
+        <ContentWrap>
+          <Switch>
+            <Route exact path="/home" render={props => <Home {...props} />} />
+          </Switch>
+        </ContentWrap>
+        <Footer />
+      </GlobalWrap>
     </Provider>
   )
 }

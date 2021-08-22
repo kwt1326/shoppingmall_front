@@ -60,6 +60,25 @@
       animation: dot_select 0.5s forwards;
     }
   }
+
+  .slide_buttons_wrap {
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    @include justify_content(space-between);
+
+    .slide_btn_left, .slide_btn_right{
+      @include justify_content(center);
+      @include center_mid();
+      cursor: pointer;
+      opacity: 0.5;
+      width: 40px;
+      height: 40px;
+      border-radius: 25px;
+      border: 2px solid white;
+      color: white;
+    }
+  }
 }
 
 @keyframes dot_select {
