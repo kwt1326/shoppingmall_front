@@ -51,7 +51,15 @@ const config = {
           },
         ],
       },
+      env === 'development' ?
       {
+        test: /\.tsx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'es2015',
+        }
+      } : {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {

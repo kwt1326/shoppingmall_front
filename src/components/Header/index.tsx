@@ -9,6 +9,7 @@ const Header: React.FC<RouteComponentProps> = props => {
 
   return (
     <header className={styles.container}>
+      {/* User Menu */}
       <div className={styles.header_top}>
         <div className={styles.title_wrap} onClick={() => props.history.push('/')}>
           <p>{"Fashion & Passion Shop"}</p>
@@ -31,6 +32,7 @@ const Header: React.FC<RouteComponentProps> = props => {
           }
         </div>
       </div>
+      {/* Category Menu */}
       <div className={styles.header_middle}>
         <div className={styles.middle_left_items}>
           <div className={styles.left_menu_items}>

@@ -13,6 +13,7 @@
 
 .container {
   padding: 0 50px;
+  min-width: 1024px;
   .header_top {
     @include flex_direction(row);
     @include justify_content(space-between);

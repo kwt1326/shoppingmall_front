@@ -122,6 +122,7 @@ if (env === 'development') {
       ]
     }
   })
+  // 'css in js' method only
   config.module.rules[0].use.push({
     loader: 'esbuild-loader',
     options: {

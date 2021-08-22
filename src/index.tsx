@@ -1,8 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import App from "./app";
 
-const renderRoot = () => ReactDOM.hydrate(<App />, document.getElementById('react-root'));
+const AppRoot = () => <Router><App /></Router>
+
+const renderRoot = () => ReactDOM.hydrate(<AppRoot />, document.getElementById('react-root'));
 
 renderRoot();
 
