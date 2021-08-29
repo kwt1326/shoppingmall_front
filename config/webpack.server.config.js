@@ -34,9 +34,9 @@ const config = {
               modules: {
                 auto: /\w+\.scss$/i,
                 exportOnlyLocals: true,
-                localIdentName: env === 'production' ?
-                  '[hash:base64]' :
-                  '[path][name]__[local]'
+                localIdentName: env === 'development' ?
+                  '[path][name]__[local]' :
+                  '[hash:base64]'
               },
             }
           },
@@ -73,7 +73,7 @@ const config = {
 if (env === 'development') {
   Object.assign(config, {
     mode: 'development',
-    devtool: 'source-map',
+    // devtool: 'source-map', // 디버깅에 필요한 경우에만 활성화 - 빌드속도에 큰 영향
   })
 }
 

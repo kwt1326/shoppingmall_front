@@ -98,7 +98,7 @@ const config = {
 if (env === 'development') {
   Object.assign(config, {
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'inline-source-map', // 디버깅에 필요한 경우에만 활성화 - 빌드속도에 큰 영향
     entry: {
       client: [
         'webpack-hot-middleware/client?reload=true',
