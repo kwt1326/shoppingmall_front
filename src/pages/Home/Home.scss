@@ -1,5 +1,39 @@
-// $test-color: purple;
+@import '../../assets/styles/mixin.scss';
 
-.test {
-  color: magenta !important;
+.container {
+  background-color: transparent;
+}
+
+.list_container {
+  .list_popular {
+    margin-top: 100px;
+
+    article:first-child {
+      margin-bottom: 60px;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  .service {
+    @include flex_direction(row);
+    margin-top: 100px;
+
+    .img_block {
+      @include justify_content(center);
+      @include align_items(center);
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    .content_block {
+      flex: 0.7;
+      .contact {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  }
 }

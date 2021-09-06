@@ -16,6 +16,7 @@ const axiosRequestApi = async (options: axiosRequestApiProps) => {
     method,
     data,
     params,
+    headers: '',
   })
 }
 

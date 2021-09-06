@@ -1,54 +1,39 @@
 import React from 'react';
+import { Route, Switch, withRouter } from 'react-router-dom';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import GlobalWrap from './components/GlobalWrap';
+import ContentWrap from './components/ContentWrap';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Modal from './components/Modal';
+import reducer from './store/reducers';
+
+// pages
 import Home from './pages/Home';
 
-export default function App() {
-  return (
-    <div>
-      test12345678
-      <Home />
-    </div>
-  )
-}
+// style(global)
+import './assets/styles/globals.scss'
 
-/**
- * import type { AppProps } from 'next/app'
-import Head from 'next/head';
-import { Fragment } from 'react';
-import wrapper from '../store';
-import Modal from '../components/Modal';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import ContentWrap from '../components/ContentWrap';
-import '../assets/styles/globals.scss'
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const getTitle = (title: string) => {
-    switch (process.env.NODE_ENV) {
-      case 'development': return `Local ${title}`;
-      default: return title
-    }
-  }
+function App() {
+  const store = createStore(reducer);
 
   return (
-    <Fragment>
-      <Head>
-        <meta
-          name="viewport"
-          id="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-        />
-        <title>{getTitle(`Fashion & Passion Shop`)}</title>
-      </Head>
+    <Provider store={store}>
       <Modal />
-      <Header />
-      <ContentWrap>
-        <Component {...pageProps} />
-      </ContentWrap>
-      <Footer />
-    </Fragment>
+      <GlobalWrap>
+        <Header />
+        <ContentWrap>
+          <Switch>
+            <Route exact path="/" render={props => <Home {...props} />} />
+            <Route exact path="/home" render={props => <Home {...props} />} />
+          </Switch>
+        </ContentWrap>
+        <Footer />
+      </GlobalWrap>
+    </Provider>
   )
 }
 
-export default wrapper.withRedux(MyApp)
-
- */
+export default withRouter(App)

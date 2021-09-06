@@ -4,7 +4,10 @@ import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 import App from '../src/app';
+import reducer from '../src/store/reducers';
 import renderHTML from './render';
 
 const webpack = require('webpack');
@@ -19,9 +22,9 @@ const env = process.env.NODE_ENV || "production";
 
 server.listen(port, () => console.log(`listening ${port} port`));
 
-if (env === 'development') {
-  const compiler = webpack([webpackClientConfig, webpackServerConfig]);
+const compiler = webpack([webpackClientConfig, webpackServerConfig]);
 
+if (env === 'development') {
   server.use(webpackDevMiddleware(compiler, { publicPath: webpackClientConfig.output.publicPath }));
   server.use(webpackHotMiddleware(compiler.compilers[0]));
 }
@@ -32,11 +35,16 @@ const manifest = fs.readFileSync(path.join(__dirname, 'static/manifest.json'), '
 
 const assets = JSON.parse(manifest);
 
-server.get('/', (req, res) => {
+server.get('*', (req, res) => {
   const component = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} context={{}}>
+    <StaticRouter location={req.originalUrl} context={{}}>
       <App />
     </StaticRouter>
   );
-  res.send(renderHTML(component, assets['client.js']));
+  res.send(renderHTML(component, env === 'development' ? {
+    src: assets['client.js'],
+  } : {
+    src: assets['client.js'],
+    style: assets['client.css'],
+  }));
 })

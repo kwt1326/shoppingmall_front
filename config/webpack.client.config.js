@@ -2,9 +2,11 @@ const path = require('path');
 const webpack = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
+console.info('build target : ' + process.env.NODE_ENV)
 
 // target : client (web)
 const config = {
@@ -56,6 +58,26 @@ const config = {
         ],
       },
       {
+        test: /\.(jpg|svg|png|gif|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]',
+              publicPath: path.resolve(__dirname, '/'),
+            },
+          },
+        ],
+      },
+      env === 'development' ?
+      {
+        test: /\.tsx?$/,
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'tsx',
+          target: 'es2015',
+        }
+      } : {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         options: {
@@ -71,13 +93,24 @@ const config = {
       filename: "[name].css",
       chunkFilename: "[name].css",
     }),
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        vendor: {
+          name: 'vendor',
+          chunks: 'initial',
+          minChunks: 2,
+        },
+      },
+    },
+  },
 }
 
 if (env === 'development') {
   Object.assign(config, {
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'inline-source-map', // 디버깅에 필요한 경우에만 활성화 - 빌드속도에 큰 영향
     entry: {
       client: [
         'webpack-hot-middleware/client?reload=true',
@@ -91,7 +124,23 @@ if (env === 'development') {
     plugins: [
       ...config.plugins,
       new webpack.HotModuleReplacementPlugin(),
-    ]
+    ],
+    optimization: {
+      minimizer: [
+        new ESBuildMinifyPlugin({
+          target: 'es2015', // Syntax to compile to (see options below for possible values)
+          css: true
+        })
+      ]
+    }
+  })
+  // 'css in js' method only
+  config.module.rules[0].use.push({
+    loader: 'esbuild-loader',
+    options: {
+      loader: 'css',
+      minify: true
+    }
   })
 }
 

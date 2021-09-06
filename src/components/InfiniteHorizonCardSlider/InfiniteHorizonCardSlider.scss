@@ -1,0 +1,106 @@
+@import "../../assets/styles/mixin.scss";
+
+@mixin card_wrapper_default {
+  @include flex_direction(row);
+  position: absolute;
+  height: 100%;
+  left: auto;
+}
+
+.slider_container {
+  @include flex_direction(column);
+  @include center_mid();
+  width: 100%;
+  background-color: white;
+  overflow: hidden;
+  position: relative;
+
+  .cards_wrapper_transition {
+    @include card_wrapper_default();
+    transition: all 0.5s ease-out;
+  }
+
+  .cards_wrapper {
+    @include card_wrapper_default();
+  }
+
+  .card {
+    @include flex_direction(column);
+    @include justify_content(space-between);
+    border-radius: 10px;
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+    background-color: white;
+    width: 280px;
+    height: 342px;
+    padding: 30px;
+  }
+
+  .dot_paging {
+    @include flex_direction(row);
+    @include justify_content(flex-start);
+    position: absolute;
+    bottom: 0;
+
+    .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: rgb(146, 144, 144);
+      border-color: 1px solid rgb(146, 144, 144);
+      margin: 4px;
+      animation: dot_unselect 0.5s forwards;
+    }
+    .dot_selected {
+      width: 20px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: #333333;
+      border-color: 1px solid #333333;
+      margin: 4px;
+      animation: dot_select 0.5s forwards;
+    }
+  }
+
+  .slide_buttons_wrap {
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    @include justify_content(space-between);
+
+    .slide_btn_left, .slide_btn_right{
+      @include justify_content(center);
+      @include center_mid();
+      cursor: pointer;
+      opacity: 0.5;
+      width: 40px;
+      height: 40px;
+      border-radius: 25px;
+      border: 2px solid white;
+      color: white;
+    }
+  }
+}
+
+@keyframes dot_select {
+  0% {
+    width: 6px;
+    background-color: rgb(146, 144, 144);
+  }
+
+  100% {
+    width: 20px;
+    background-color: #333333;
+  }
+}
+
+@keyframes dot_unselect {
+  0% {
+    width: 20px;
+    background-color: #333333;
+  }
+
+  100% {
+    width: 6px;
+    background-color: rgb(146, 144, 144);
+  }
+}
