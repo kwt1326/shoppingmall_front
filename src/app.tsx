@@ -26,6 +26,7 @@ function App() {
         <Header />
         <ContentWrap>
           <Switch>
+            <Route exact path="/" render={props => <Home {...props} />} />
             <Route exact path="/home" render={props => <Home {...props} />} />
           </Switch>
         </ContentWrap>

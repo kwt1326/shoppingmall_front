@@ -12,8 +12,13 @@
 }
 
 .container {
+  @include sticky();
+  top: 0px;
   padding: 0 50px;
   min-width: 1024px;
+  z-index: 999;
+  background-color: white;
+
   .header_top {
     @include flex_direction(row);
     @include justify_content(space-between);

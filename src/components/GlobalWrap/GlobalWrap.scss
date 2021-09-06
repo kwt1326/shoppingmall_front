@@ -4,6 +4,7 @@
   @include justify_content(center);
   width: 100%;
   height: 100%;
+  position: relative;
   
   .container_child {
     width: 1024px;

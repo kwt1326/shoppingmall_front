@@ -53,3 +53,8 @@
 	-ms-word-break: break-all;
 	word-break: break-all;
 }
+
+@mixin sticky() {
+  position: -webkit-sticky;
+  position: sticky;
+}

@@ -51,6 +51,18 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.(jpg|svg|png|gif|ico)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[ext]',
+              publicPath: path.resolve(__dirname, '/'),
+            },
+          },
+        ],
+      },
       env === 'development' ?
       {
         test: /\.tsx?$/,
