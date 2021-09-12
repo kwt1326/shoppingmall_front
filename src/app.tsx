@@ -15,7 +15,6 @@ import Home from './pages/Home';
 // style(global)
 import './assets/styles/globals.scss'
 
-
 function App() {
   const store = createStore(reducer);
 

@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import InfiniteHorizonCardSlider from '../../components/InfiniteHorizonCardSlider';
+import Grid from '../../components/List/Grid';
 import axiosRequestApi from '../../utils/axiosRequest';
+
+import eventItems from '../../constants/gridEventItems';
+import bannerItems from '../../constants/bannerItems';
+import popularItems from '../../constants/popularItems';
 
 import styles from './Home.scss';
 
@@ -47,16 +52,20 @@ function Home(params: any) {
   return (
     <section className={styles.list_container}>
       {/* BANNER SECTION */}
-      <section>
+      <section className={styles.list_banner}>
         <InfiniteHorizonCardSlider
           useBannerStyle={{ width: 894 }}
           usePaging
           useButton
           useAuto
         >
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'purple' }}></div>
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'skyblue' }}></div>
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'green' }}></div>
+          {
+            bannerItems.map((item, i) => (
+              <div key={i} style={{ display: 'flex', flex: 1 }}>
+                <img style={{ width: '100%', height: '100%' }} src={item.src} />
+              </div>
+            ))
+          }
         </InfiniteHorizonCardSlider>
       </section>
       {/* FAMOUS LIST SECTION */}
@@ -70,10 +79,47 @@ function Home(params: any) {
           cardWidth={280}
           containerStyle={{ width: '100%', height: '400px' }}
         >
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}></div>
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}></div>
-          <div style={{ display: 'flex', flex: 1, backgroundColor: 'white' }}></div>
+          {
+            popularItems.map((item, i) => (
+              <div key={i} style={{ display: 'flex', flex: 1 }}>
+                <img style={{ width: '100%', height: '100%' }} src={item.src} />
+              </div>
+            ))
+          }
         </InfiniteHorizonCardSlider>
+      </section>
+      {/* GRID EVENT VIEW */}
+      <section className={styles.list_grid}>
+        <Grid
+          motionInlineStyle={{
+            gridTemplateAreas: `
+              'a a b'
+              'a a f'
+              'c d e'
+            `,
+            height: 1000,
+          }}
+        >
+          {
+            eventItems.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  display: 'flex',
+                  flex: 1,
+                  backgroundColor: `#${Math.round(Math.random() * 900000)}`,
+                  gridArea: item.gridArea,
+                }}
+              >
+                <img
+                  src={item.imgSrc}
+                  alt={`${item.id}_img`}
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </div>
+            ))
+          }
+        </Grid>
       </section>
       {renderServices()}
     </section>
