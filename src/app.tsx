@@ -10,7 +10,8 @@ import Modal from './components/Modal';
 import reducer from './store/reducers';
 
 // pages
-import Home from './pages/Home';
+import Home from './pages/home';
+import ProductDetail from './pages/productDetail';
 
 // style(global)
 import './assets/styles/globals.scss'
@@ -27,6 +28,7 @@ function App() {
           <Switch>
             <Route exact path="/" render={props => <Home {...props} />} />
             <Route exact path="/home" render={props => <Home {...props} />} />
+            <Route path="/detail" render={props => <ProductDetail {...props} />} />
           </Switch>
         </ContentWrap>
         <Footer />

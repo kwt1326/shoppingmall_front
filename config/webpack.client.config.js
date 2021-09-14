@@ -69,6 +69,18 @@ const config = {
           },
         ],
       },
+      {
+        test: /\.(fbx|gltf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'models/[name].[ext]',
+              publicPath: path.resolve(__dirname, '/'),
+            },
+          },
+        ],
+      },
       env === 'development' ?
       {
         test: /\.tsx?$/,
