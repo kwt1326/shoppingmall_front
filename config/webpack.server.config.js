@@ -57,19 +57,7 @@ const config = {
           {
             loader: 'file-loader',
             options: {
-              name: 'images/[name].[ext]',
-              publicPath: path.resolve(__dirname, '/'),
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(fbx|gltf)$/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: 'models/[name].[ext]',
+              name: '[name].[ext]',
               publicPath: path.resolve(__dirname, '/'),
             },
           },

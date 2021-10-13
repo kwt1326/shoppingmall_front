@@ -15,11 +15,11 @@ function ProductDetail(params: any) {
     const ThreeView = React.lazy(() => import('../../components/ThreeView'));
     return (
       <Suspense fallback={<div>Loading View...</div>}>
-        <ThreeView
+        {/* <ThreeView
           type={'MODEL_VIEW'}
           modelPath={'smol-ame-bee/source/AmeBeeSF.fbx'}
           modelExt={'fbx'}
-        />
+        /> */}
       </Suspense>
     )
   }

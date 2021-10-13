@@ -1,1 +1,1 @@
-export const serverHostUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8090' : '';
+export const serverHostUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8090' : 'https://apis.dongtaekim.space';

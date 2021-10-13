@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import styles from './ThreeView.scss';
@@ -21,7 +22,7 @@ function ThreeModelView(props: any) {
     const extension = splitPath[splitPath?.length - 1];
 
     if (containerRef?.current) {
-      container = containerRef.current as HTMLDivElement;
+      container = containerRef.current as unknown as HTMLDivElement;
 
       camera = new THREE.PerspectiveCamera(25, container.offsetWidth / container.offsetHeight, 1, 3000);
 
@@ -32,28 +33,22 @@ function ThreeModelView(props: any) {
       light.castShadow = true;
 
       const grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
+      let loader = null;
 
-      if (extension === 'fbx') {
-        const loader = new FBXLoader();
-        const url = require(`../../assets/models/${modelPath}`).default;
+      if (extension === 'gltf') {
+        loader = new GLTFLoader();
+        const url = ''; // require(`../../assets/models/${modelPath}`).default;
 
-        loader.load(url, (obj) => {
-          console.log(obj)
-          if (camera) {
-            camera.position.set(300, 150, 300);
-            camera.rotation.set(0, 500, 0);
-            // camera.fov = 2 * Math.atan( ( width / aspect ) / ( 2 * dist ) ) * ( 180 / Math.PI ); // in degrees
-          }
-    
-          obj.position.set(0, 0, 0);
-          obj.rotation.set(0, 0, 0);
-          scene.add(obj);
+        loader.load(url, (gltf) => {
+          scene.add(gltf.scene);
         });
-
       }
 
       scene.add(light);
       scene.add(grid);
+
+      camera.position.set(300, 150, 300);
+      camera.rotation.set(0, 500, 0);
 
       renderer = new THREE.WebGLRenderer();
       renderer.setPixelRatio(window.devicePixelRatio);

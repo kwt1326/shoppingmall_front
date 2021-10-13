@@ -11,7 +11,6 @@ type GridProps = {
 }
 
 const Grid = (props: GridProps) => {
-  console.log(props.motionInlineStyle)
   const gridDefaultStyle = {
     gridTemplateColumns: 'repeat(auto-fit, 50%)',
     gridTemplateRows: 'repeat(auto-fit, auto)',
