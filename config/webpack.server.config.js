@@ -1,5 +1,6 @@
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 
@@ -10,6 +11,7 @@ const config = {
   mode: 'production',
   entry: {
     server: path.resolve(__dirname, '../server/index.tsx'),
+    vendor: [ 'react', 'react-dom' ]
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -19,7 +21,7 @@ const config = {
   resolve: {
     extensions: ['.ts', '.tsx', 'js', '.css', '.scss'],
   },
-  externals: [nodeExternals()],
+  externals: ['@loadable/component', nodeExternals()],
   node: {
     __dirname: false,
   },
@@ -63,23 +65,53 @@ const config = {
           },
         ],
       },
-      env === 'development' ?
+      // env === 'development' ?
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'esbuild-loader',
+      //   options: {
+      //     loader: 'tsx',
+      //     target: 'es2015',
+      //   }
+      // } : {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      //   options: {
+      //     configFile: '../config/tsconfig.server.json',
+      //   }
+      // }
       {
-        test: /\.tsx?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015',
-        }
-      } : {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          configFile: '../config/tsconfig.server.json',
-        }
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              caller: 'node'
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: '../config/tsconfig.client.json',
+            }
+          }
+        ]
+      }, {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              caller: 'node'
+            }
+          },
+        ]
       }
     ]
   },
+  plugins: [new LoadablePlugin()],
 }
 
 if (env === 'development') {

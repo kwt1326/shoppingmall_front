@@ -2,8 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
+const { ESBuildMinifyPlugin } = require('esbuild-loader'); // only develop
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const env = process.env.NODE_ENV === 'development' ? 'development' : 'production';
 console.info('build target : ' + process.env.NODE_ENV)
@@ -16,7 +17,8 @@ const config = {
   entry: {
     client: [
       path.resolve(__dirname, '../src/index.tsx'),
-    ]
+    ],
+    vendor: [ 'react', 'react-dom' ]
   },
   output: {
     path: path.resolve(__dirname, '../dist/static'),
@@ -69,20 +71,49 @@ const config = {
           },
         ],
       },
-      env === 'development' ?
+      // env === 'development' ?
+      // {
+      //   test: /\.tsx?$/,
+      //   loader: 'esbuild-loader',
+      //   options: {
+      //     loader: 'tsx',
+      //     target: 'es2015',
+      //   }
+      // } : {
+      //   test: /\.tsx?$/,
+      //   loader: 'ts-loader',
+      //   options: {
+      //     configFile: '../config/tsconfig.client.json',
+      //   }
+      // }
       {
-        test: /\.tsx?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015',
-        }
-      } : {
-        test: /\.tsx?$/,
-        loader: 'ts-loader',
-        options: {
-          configFile: '../config/tsconfig.client.json',
-        }
+        test: /\.ts(x?)$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              caller: 'web'
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              configFile: '../config/tsconfig.client.json',
+            }
+          }
+        ]
+      }, {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              caller: 'web'
+            }
+          },
+        ]
       }
     ]
   },
@@ -93,6 +124,7 @@ const config = {
       filename: "[name].css",
       chunkFilename: "[name].css",
     }),
+    new LoadablePlugin(),
   ],
   optimization: {
     splitChunks: {
