@@ -11,6 +11,10 @@ type GridProps = {
 }
 
 const Grid = (props: GridProps) => {
+  const gridDefaultStyle = {
+    gridTemplateColumns: 'repeat(auto-fit, 50%)',
+    gridTemplateRows: 'repeat(auto-fit, auto)',
+  }
   return (
     <div
       className={`${styles.container} ${props.className || ''}`}
@@ -18,7 +22,7 @@ const Grid = (props: GridProps) => {
     >
       <motion.div
         className={`${styles.grid} ${props.motionClassName || ''}`}
-        style={props.motionInlineStyle || {}}      
+        style={props.motionInlineStyle || gridDefaultStyle}    
         animate={{
           translateY: [ 70, 0 ],
           opacity: [ 0, 1 ],
@@ -30,18 +34,5 @@ const Grid = (props: GridProps) => {
     </div>
   )
 }
-
-const GridItem = (props: any) => {
-  return (
-    <motion.div
-      className={`${styles.grid_item} ${props.className}`}
-      {...props.option}
-    >
-      {props.children}
-    </motion.div>
-  )
-}
-
-Grid.GridItem = GridItem;
 
 export default Grid;

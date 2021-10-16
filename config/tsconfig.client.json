@@ -9,8 +9,8 @@
     //   "dom.iterable",
     //   "ESNext",
     // ],
-    // "module": "ESNext", // generate ES modules
-    "module": "es6",
+    "module": "ESNext", // generate ES modules
+    // "module": "es6",
     "target": "es5", // target ES5 API
     "jsx": "react", // compile JSX to React.createElement statements for browser
     "moduleResolution": "node",
