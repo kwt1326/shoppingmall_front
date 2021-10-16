@@ -1,0 +1,48 @@
+name: SSH Instance Deploy (use Docker)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  frontend-deploy:
+    runs-on: ubuntu-latest
+
+#     strategy:
+#       matrix:
+#         node-version: [14.x]
+    
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: SSH Deploy
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_KEY }}
+        passphrase: ${{ secrets.SSH_PASSWORD }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          cd app/git/shoppingmall_front
+          git pull
+          sudo docker build -t kwt1326/react-shoppingmall .
+          sudo docker run --rm -d -p 3000:3000 --name deploy kwt1326/react-shoppingmall
+          sudo docker system prune -f
+          exit
+      
+#     - name: Use Node.js ${{ matrix.node-version }}
+#       uses: actions/setup-node@v1
+#       with:
+#         node-version: ${{ matrix.node-version }}
+
+#     - name: Build
+#       run: |
+#         npm install
+#         npm run build
+    
+#     - name: Send To Instance
+#       run: |
+#         push to Storage (S3 or other CDN)
