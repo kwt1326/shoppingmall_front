@@ -17,39 +17,30 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const webpackClientConfig = require('../config/webpack.client.config.js');
-const webpackServerConfig = require('../config/webpack.server.config.js');
 
 const server = express();
 const port = process.env.PORT || 3000;
-const env = process.env.NODE_ENV || "production";
+const env = process.env.NODE_ENV;
 
 server.listen(port, () => console.log(`listening ${port} port`));
 
-const compiler = webpack([webpackClientConfig, webpackServerConfig]);
+const compiler = webpack(webpackClientConfig);
 
 if (env === 'development') {
   server.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackClientConfig.output.publicPath,
-    writeToDisk(filePath: string) {
-      return /dist\/node\//.test(filePath) || /loadable-stats/.test(filePath)
-    },
+    publicPath: webpackClientConfig[0].output.publicPath,
+    writeToDisk: true,
   }));
-  server.use(webpackHotMiddleware(compiler.compilers[0]));
+  server.use(webpackHotMiddleware(compiler));
 }
 
-server.use('/', express.static(path.join(__dirname, 'static')));
-server.use(express.static(path.join(__dirname, '/')))
-
-const manifest = fs.readFileSync(path.join(__dirname, 'static/manifest.json'), 'utf-8');
-
-const assets = JSON.parse(manifest);
-
-const nodeStats = path.join(__dirname, 'loadable-stats.json');
-
-const webStats = path.join(__dirname, 'static/loadable-stats.json');
+server.use(express.static(path.resolve(__dirname)));
 
 server.get('*', (req, res) => {
+  const nodeStats = path.resolve(__dirname, './node/loadable-stats.json');
 
+  const webStats = path.resolve(__dirname, './web/loadable-stats.json');
+  
   const nodeExtractor = new ChunkExtractor({ statsFile: nodeStats });
 
   const { default: App } = nodeExtractor.requireEntrypoint()
@@ -66,30 +57,4 @@ server.get('*', (req, res) => {
 
   res.set('content-type', 'text/html')
   res.send(renderHTML(html, webExtractor));
-  // res.send(`
-  //     <!DOCTYPE html>
-  //     <html>
-  //       <head>
-  //       ${webExtractor.getLinkTags()}
-  //       ${webExtractor.getStyleTags()}
-  //       </head>
-  //       <body>
-  //         <div id="react-root">${html}</div>
-  //         ${webExtractor.getScriptTags()}
-  //       </body>
-  //     </html>
-  //   `)
-
-  // const component = ReactDOMServer.renderToString(
-  //   <StaticRouter location={req.originalUrl} context={{}}>
-  //     <App />
-  //   </StaticRouter>
-  // );
-
-  // res.send(renderHTML(component, env === 'development' ? {
-  //   src: assets['client.js'],
-  // } : {
-  //   src: assets['client.js'],
-  //   style: assets['client.css'],
-  // }));
 })
