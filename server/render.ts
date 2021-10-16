@@ -1,8 +1,12 @@
-export default function renderHTML(component: string, assets: { src: string, style?: string }) {
+import { ChunkExtractor } from "@loadable/server";
+
+export default function renderHTML(component: string, extractor: ChunkExtractor /*assets: { src: string, style?: string }*/) {
   return (
     `<!DOCTYPE html>
     <html>
       <head>
+        ${extractor.getLinkTags()}
+        ${extractor.getStyleTags()}
         <meta charset="utf-8" />
         <meta
           name="og:title"
@@ -18,12 +22,16 @@ export default function renderHTML(component: string, assets: { src: string, sty
           content="Fashion & Passion Shop Portfolio by Kim wontae"
         />
         <title>Welcome The Shop!</title>
-        <link rel="stylesheet" type="text/css" href=${assets.style}>
+        
       </head>
       <body>
         <div id="react-root">${component}</div>
-        <script defer="defer" src=${assets.src}></script>
+        
+        ${extractor.getScriptTags()}
       </body>
     </html>`
   )
 }
+
+// <link rel="stylesheet" type="text/css" href=${assets.style}>
+// <script defer="defer" src=${assets.src}></script>
