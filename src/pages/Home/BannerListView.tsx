@@ -10,15 +10,15 @@ const BannerList = (props: any) => {
   return (
     <section className={styles.list_banner}>
         <InfiniteHorizonCardSlider
-          useBannerStyle={{ width: 894 }}
+          useBannerStyle={{ width: 990 }}
           usePaging
           useButton
           useAuto
         >
           {
             bannerItems.map((item, i) => (
-              <div key={i} style={{ display: 'flex', flex: 1 }}>
-                <img style={{ width: '100%', height: '100%' }} src={item.src} />
+              <div key={i} style={{ display: 'flex', flex: 1, justifyContent: 'center' }}>
+                <img style={{ width: 'auto', height: '400px' }} src={item.src} />
               </div>
             ))
           }

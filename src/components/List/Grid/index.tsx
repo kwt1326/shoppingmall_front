@@ -12,8 +12,9 @@ type GridProps = {
 
 const Grid = (props: GridProps) => {
   const gridDefaultStyle = {
-    gridTemplateColumns: 'repeat(auto-fit, 50%)',
-    gridTemplateRows: 'repeat(auto-fit, auto)',
+    gridTemplateColumns: 'repeat(auto-fit, 270px)',
+    gridTemplateRows: 'repeat(auto-fit, 270px)',
+    gridAutoRows: 'minmax(250px, 270px)',
   }
   return (
     <div

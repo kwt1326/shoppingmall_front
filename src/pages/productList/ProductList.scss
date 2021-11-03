@@ -1,0 +1,29 @@
+@import '../../assets/styles/mixin.scss';
+
+.product_list_container {
+  background-color: #fff;
+
+  .product_list_item {
+    @include flex_direction(column);
+
+    img {
+      height: 270px;
+    }
+
+    .product_item_short_content {
+      flex: 1;
+      padding: 10px 0;
+
+      .title {
+        font-size: 14px;
+        padding-bottom: 10px;
+      }
+      .price {
+        font-size: 14px;
+      }
+      .discount_price {
+        font-size: 14px;
+      }
+    }
+  }
+}

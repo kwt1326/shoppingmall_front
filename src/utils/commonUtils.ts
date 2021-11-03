@@ -18,5 +18,14 @@ export default {
       return resultObj;
     }
     return {};
+  },
+  priceComma: (num: string) => {
+    if (typeof num === 'string') {
+      return num.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    }
+    return num;
+  },
+  discountPrice: (price: number, discount: number) => {
+    return String(price - Math.floor(Number(price) * (Number(discount) / 100)))
   }
 }

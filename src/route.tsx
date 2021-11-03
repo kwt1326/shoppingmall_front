@@ -5,6 +5,7 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import Home from './pages/home';
 import Login from './pages/login';
 import Mypage from './pages/mypage';
+import ProductList from './pages/productList';
 import ProductDetail from './pages/productDetail';
 
 const Router = () => (
@@ -13,7 +14,7 @@ const Router = () => (
     <Route path="/home" render={props => <Home {...props} />} />
     <Route path="/login" render={props => <Login {...props} />} />
     <Route path="/mypage" render={props => <Mypage {...props} />} />
-    <Route path="/product/list/:page/:category" render={props => <ProductDetail {...props} />} />
+    <Route path="/product/list/:category/:page" render={props => <ProductList {...props} />} />
     <Route path="/product/detail/:id" render={props => <ProductDetail {...props} />} />
   </Switch>
 )

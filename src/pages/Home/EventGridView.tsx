@@ -14,7 +14,6 @@ const EventGridView = (props: any) => {
           'a a f'
           'c d e'
         `,
-        height: 1000,
       }}
     >
       {

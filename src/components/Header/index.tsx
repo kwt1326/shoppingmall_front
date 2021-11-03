@@ -12,7 +12,7 @@ const Header: React.FC<RouteComponentProps> = props => {
       {/* User Menu */}
       <div className={styles.header_top}>
         <div className={styles.title_wrap} onClick={() => props.history.push('/')}>
-          <p>{"Fashion & Passion Shop"}</p>
+          <p>{"The Goods Shop"}</p>
         </div>
         <div className={styles.top_right_items}>
           {

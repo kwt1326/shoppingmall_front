@@ -2,24 +2,32 @@ export const headerMenuItems = {
   left: [
     {
       name: 'BEST',
-      path: '/shop/list/best/1'
+      path: '/product/list/best/1'
     },
     {
-      name: 'TOP',
-      path: '/shop/list/top/1'
+      name: 'HOLOLIVE EN',
+      path: '/product/list/holoen/1'
     },
     {
-      name: 'BOTTOM',
-      path: '/shop/list/bottom/1'
+      name: 'HOLOLIVE JP',
+      path: '/product/list/holojp/1'
     },
-    {
-      name: 'OUTER',
-      path: '/shop/list/outer/1'
-    },
-    {
-      name: 'OTHERS',
-      path: '/shop/list/others/1'
-    },
+    // {
+    //   name: 'TOP',
+    //   path: '/product/list/top/1'
+    // },
+    // {
+    //   name: 'BOTTOM',
+    //   path: '/product/list/bottom/1'
+    // },
+    // {
+    //   name: 'OUTER',
+    //   path: '/product/list/outer/1'
+    // },
+    // {
+    //   name: 'OTHERS',
+    //   path: '/product/list/others/1'
+    // },
   ],
   right: [
     {

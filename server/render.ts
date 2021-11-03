@@ -1,6 +1,6 @@
 import { ChunkExtractor } from "@loadable/server";
 
-export default function renderHTML(component: string, extractor: ChunkExtractor /*assets: { src: string, style?: string }*/) {
+export default function renderHTML(component: string, extractor: ChunkExtractor) {
   return (
     `<!DOCTYPE html>
     <html>
@@ -10,16 +10,16 @@ export default function renderHTML(component: string, extractor: ChunkExtractor 
         <meta charset="utf-8" />
         <meta
           name="og:title"
-          content="Fashion & Passion Shop"
+          content="The Goods Shop"
         />
         <meta name="keywords" content="shopping, portfolio" />
         <meta
           name="description"
-          content="Fashion & Passion Shop Portfolio by Kim wontae"
+          content="The Goods Shop Portfolio by Kim wontae"
         />
         <meta
           name="og:description"
-          content="Fashion & Passion Shop Portfolio by Kim wontae"
+          content="The Goods Shop Portfolio by Kim wontae"
         />
         <title>Welcome The Shop!</title>
         
@@ -32,6 +32,3 @@ export default function renderHTML(component: string, extractor: ChunkExtractor 
     </html>`
   )
 }
-
-// <link rel="stylesheet" type="text/css" href=${assets.style}>
-// <script defer="defer" src=${assets.src}></script>

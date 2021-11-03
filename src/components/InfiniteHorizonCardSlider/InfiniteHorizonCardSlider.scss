@@ -63,7 +63,7 @@
 
   .slide_buttons_wrap {
     position: absolute;
-    bottom: 50%;
+    bottom: calc(50% - 20px);
     width: 100%;
     @include justify_content(space-between);
 

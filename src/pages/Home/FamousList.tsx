@@ -14,7 +14,7 @@ const FamousList = (props: any) => {
 
   const getProductList = async () => {
     const response = await axiosRequestApi({
-      url: '/public/product/list',
+      url: '/public/product',
       method: 'GET',
       params: { page: 1, heart: true },
       data: {}
