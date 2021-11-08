@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import styles from './Grid.scss';
 
 type GridProps = {
-  children: Array<any>;
+  children: Array<JSX.Element> | JSX.Element;
   className?: string;
   motionClassName?: string;
   inlineStyle?: React.CSSProperties;

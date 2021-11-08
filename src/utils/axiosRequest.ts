@@ -1,4 +1,5 @@
 import axios, { Method } from 'axios';
+import cookie from 'js-cookie';
 import { serverHostUrl } from '../config';
 
 type axiosRequestApiProps = {
@@ -10,13 +11,16 @@ type axiosRequestApiProps = {
 }
 
 const axiosRequestApi = async (options: axiosRequestApiProps) => {
-  const { method, data, params, url } = options;
+  const { method, data, params, url, headers } = options;
+  const defaultHeaders = { Authorization: cookie.get('shoppingmall-cookie') };
+  headers && Object.assign(defaultHeaders, headers);
+
   return await axios({
     url: `${serverHostUrl}${url}`,
     method,
     data,
     params,
-    headers: '',
+    headers: defaultHeaders,
   })
 }
 

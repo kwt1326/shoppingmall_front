@@ -1,12 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import Stats from 'three/examples/jsm/libs/stats.module';
 import styles from './ThreeView.scss';
 
-function ThreeModelView(props: any) {
+function ThreeModelView(props: { url: string }) {
   const containerRef = useRef(null);
 
   let container: HTMLDivElement | null = null;
@@ -17,46 +16,34 @@ function ThreeModelView(props: any) {
   const stats = Stats();
 
   const render = () => {
-    const modelPath = props.modelPath;
-    const splitPath = modelPath?.split('.');
-    const extension = splitPath[splitPath?.length - 1];
-
     if (containerRef?.current) {
       container = containerRef.current as unknown as HTMLDivElement;
 
-      camera = new THREE.PerspectiveCamera(25, container.offsetWidth / container.offsetHeight, 1, 3000);
+      camera = new THREE.PerspectiveCamera(50, container.offsetWidth / container.offsetHeight, 0.01, 10000);
 
-      scene.background = new THREE.Color('ffffff');
-
-      const light = new THREE.DirectionalLight(0xffffff);
-      light.position.set(0, 200, 0);
-      light.castShadow = true;
-
-      const grid = new THREE.GridHelper(2000, 20, 0x000000, 0x000000);
-      let loader = null;
-
-      if (extension === 'gltf') {
-        loader = new GLTFLoader();
-        const url = ''; // require(`../../assets/models/${modelPath}`).default;
-
-        loader.load(url, (gltf) => {
-          scene.add(gltf.scene);
-        });
-      }
-
+      const grid = new THREE.GridHelper(500, 10, new THREE.Color(170,170,170), new THREE.Color(170,170,170));
+      const light = new THREE.AmbientLight(0xffffff, 1);
+      const loader = new GLTFLoader();
+      
+      loader.load(props.url, (gltf) => {
+        scene.add(gltf.scene);
+      });
+      
+      scene.background = new THREE.Color(0, 195, 255);
       scene.add(light);
       scene.add(grid);
 
-      camera.position.set(300, 150, 300);
-      camera.rotation.set(0, 500, 0);
+      camera.position.set(0, 10, 5);
+      camera.lookAt(0, 0, 0);
 
       renderer = new THREE.WebGLRenderer();
       renderer.setPixelRatio(window.devicePixelRatio);
       renderer.setSize(container.offsetWidth, container.offsetHeight);
+      renderer.outputEncoding = THREE.sRGBEncoding;
       renderer.shadowMap.enabled = true;
       
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.target.set(0, 200, 0);
+      controls.target.set(0, 0, 0);
       controls.update();
       
       const statsDom = stats.dom;

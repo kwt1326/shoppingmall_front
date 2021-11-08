@@ -1,1 +1,2 @@
 export const serverHostUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:8090' : 'https://apis.dongtaekim.space';
+export const ociObjStorageUrl = 'https://objectstorage.ap-seoul-1.oraclecloud.com/n/cnresaok5nnv/b/bucket-public/o/shoppingmall%2Fmodels%2F'

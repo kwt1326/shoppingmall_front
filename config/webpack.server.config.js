@@ -39,14 +39,15 @@ const config = {
           },
         ],
       },
-      env === 'development' ? {
-        test: /\.tsx?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015',
-        }
-      } : {
+      // env === 'development' ? {
+      //   test: /\.tsx?$/,
+      //   loader: 'esbuild-loader',
+      //   options: {
+      //     loader: 'tsx',
+      //     target: 'es2015',
+      //   }
+      // } : {
+      {
         test: /\.ts(x?)$/,
         exclude: /node_modules/,
         use: [

@@ -1,0 +1,23 @@
+@import '../../assets/styles/mixin.scss';
+
+.cart_container {
+  @include flex_direction(column);
+  @include justify_content(flex-start);
+  @include align_items(center);
+  padding: 0 50px;
+
+  .title {
+    width: 100%;
+    text-align: left;
+  }
+  .cart_list_wrap {
+    width: 100%;
+
+    .cart_table {
+      width: 100%;
+    }
+    .cart_item_row {
+
+    }
+  } 
+}

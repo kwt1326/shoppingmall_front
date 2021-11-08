@@ -43,8 +43,8 @@ export const headerMenuItems = {
       path: '/myheart'
     },
     {
-      name: 'SHOPPING BAG',
-      path: '/shoppingbag'
+      name: 'CART',
+      path: '/cart'
     },
   ],
 }

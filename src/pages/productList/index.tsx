@@ -64,23 +64,29 @@ const ProductList = (props: any) => {
             )
           }
         </div>
-      </div> 
+      </div>
     )
   }
 
   return (
     <section className={styles.product_list_container}>
-      <Grid
-        motionInlineStyle={{
-          gridTemplateColumns: 'repeat(auto-fit, 270px)',
-          gridTemplateRows: 'repeat(auto-fit, 370px)',
-          gridAutoRows: 'minmax(250px, 270px)',      
-        }}
-      >
-        {
-          list?.map(item => renderProductListItem(item))
-        }
-      </Grid>
+      {
+        (Array.isArray(list) && list.length > 0) ? (
+          <Grid
+            motionInlineStyle={{
+              gridTemplateColumns: 'repeat(auto-fit, 270px)',
+              gridTemplateRows: 'repeat(auto-fit, 370px)',
+              gridAutoRows: 'minmax(250px, 270px)',
+            }}
+          >
+            {list?.map(item => renderProductListItem(item))}
+          </Grid>
+        ) : (
+          <div className={styles.empty_content}>
+            등록된 상품이 없습니다.
+          </div>
+        )
+      }
     </section>
   )
 }
