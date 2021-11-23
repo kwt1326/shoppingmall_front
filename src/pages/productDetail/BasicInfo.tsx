@@ -73,7 +73,10 @@ const BasicInfo = ({ info, userId, history }: {
             <input
               className={styles.count_input}
               type="number"
-              onChange={e => setCount(Number(e.target.value))}
+              onChange={e => {
+                const count = Number(e.target.value);
+                setCount(count < 0 ? 0 : count);
+              }}
               value={count ?? 0}
             />
           </span>

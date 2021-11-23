@@ -1,4 +1,7 @@
-export const headerMenuItems = {
+export const headerMenuItems = (params: {
+  history: any;
+  logged: boolean;
+}) => ({
   left: [
     {
       name: 'BEST',
@@ -35,10 +38,6 @@ export const headerMenuItems = {
       path: '/mypage'
     },
     {
-      name: 'LOGIN',
-      path: '/login'
-    },
-    {
       name: 'MY HEART',
       path: '/myheart'
     },
@@ -46,5 +45,9 @@ export const headerMenuItems = {
       name: 'CART',
       path: '/cart'
     },
+    {
+      name: params?.logged ? 'LOGOUT' : 'LOGIN',
+      path: params?.logged ? '/logout' : '/login',
+    }
   ],
-}
+})

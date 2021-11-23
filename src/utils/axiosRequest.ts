@@ -12,7 +12,7 @@ type axiosRequestApiProps = {
 
 const axiosRequestApi = async (options: axiosRequestApiProps) => {
   const { method, data, params, url, headers } = options;
-  const defaultHeaders = { Authorization: cookie.get('shoppingmall-cookie') };
+  const defaultHeaders = { Authorization: `Bearer ${cookie.get('shoppingmall-cookie')}` };
   headers && Object.assign(defaultHeaders, headers);
 
   return await axios({

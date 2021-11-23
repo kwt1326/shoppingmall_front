@@ -14,6 +14,7 @@ function ProductDetail(props: any) {
   const params = useParams<{ id: string }>();
 
   useEffect(() => {
+    console.log(props);
     getProductDetail();
   }, [params?.id]);
 

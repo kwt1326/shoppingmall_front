@@ -10,10 +10,11 @@ export const SETMODAL = 'modal/SETMODAL';
 export function userAuth(props: UserAuthTypes) {
     return {
         type: USERAUTH,
-        jwt: props.jwt,
-        username: props.username,
-        userId: props.userId,
-        realname: props.realname,
+        userId: props?.userId,
+        username: props?.username,
+        realname: props?.realname,
+        email: props?.email,
+        contact: props?.contact,
     }
 }
 

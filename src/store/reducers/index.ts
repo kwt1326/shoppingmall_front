@@ -45,6 +45,8 @@ const authInitialState = {
     username: null,
     userId: null,
     realname: null,
+    contact: null,
+    email: null,
     logging: false,
 };
 
@@ -58,10 +60,11 @@ const auth = (state = authInitialState, action: AuthActionType) => {
         case USERAUTH:
             return {
                 ...state,
-                jwt: action.jwt,
                 userId: action.userId,
                 username: action.username,
                 realname: action.realname,
+                contact: action.contact,
+                email: action.email,
             }
         default:
             return state;

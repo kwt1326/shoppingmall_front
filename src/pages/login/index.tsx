@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
 import cookie from 'js-cookie';
 import axiosRequestApi from '../../utils/axiosRequest';
+import requestUtils from '../../utils/requestUtils';
+import { userAuth } from '../../store/actions';
 
 import styles from './Login.scss';
 
@@ -25,7 +29,9 @@ const Login = (props: any) => {
         params: { username, password },
       })
       if (response.status === 200) {
-        cookie.set('shoppingmall-cookie', response.headers?.authorization);
+        cookie.set('shoppingmall-cookie', response.headers?.authorization?.split(' ')[1]);
+        await props.setUserInfo();
+      
         alert('로그인이 성공하였습니다.');
         return props.history.push('/');
       }
@@ -61,4 +67,8 @@ const Login = (props: any) => {
   )
 }
 
-export default Login;
+const mapDispatchToProps = (dispatch: (arg0: { type: string; isOpen?: boolean; modalComponent?: JSX.Element }) => any) => ({
+  setUserInfo: async () => dispatch(userAuth(await requestUtils.getUserInfo())),
+});
+
+export default connect(undefined, mapDispatchToProps)(withRouter(Login));
