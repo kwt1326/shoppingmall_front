@@ -10,7 +10,7 @@ const config = {
   target: 'node',
   mode: env,
   entry: {
-    server: path.resolve(__dirname, '../server/index.tsx'),
+    server: path.resolve(__dirname, '../server/index.ts'),
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
@@ -19,7 +19,7 @@ const config = {
     libraryTarget: 'commonjs2',
   },
   resolve: {
-    extensions: ['.ts', '.tsx', 'js', '.css', '.scss'],
+    extensions: ['.ts', '.tsx', '.js', '.css', '.scss'],
   },
   externals: ['@loadable/component', nodeExternals()],
   node: {
@@ -35,6 +35,7 @@ const config = {
             options: {
               name: '[name].[ext]',
               outputPath: '../assets/images',
+              emitFile: false,
             },
           },
         ],

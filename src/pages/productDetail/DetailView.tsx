@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import { InfoTypes } from '../../interface/productDetailTypes';
-import { ociObjStorageUrl } from '../../config';
 
 import styles from './ProductDetail.scss';
 
@@ -14,7 +13,7 @@ const DetailView = ({ info }: { info: InfoTypes }) => {
         <Suspense fallback={<div>모델 뷰를 만드는 중입니다...</div>}>
           <ThreeView
             type={'MODEL_VIEW'}
-            url={`${ociObjStorageUrl}${info?.modelsrc}`}
+            url={info?.modelsrc}
           />
         </Suspense>
       )

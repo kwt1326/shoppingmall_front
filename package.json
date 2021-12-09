@@ -10,8 +10,8 @@
     "build:client:dev": "NODE_ENV=development PORT=3000 webpack --config ./config/webpack.client.config.js",
     "build:dev": "npm run build:client:dev && npm run build:server:dev",
     "build": "npm run build:client && npm run build:server",
-    "start:prod": "NODE_ENV=production PORT=3000 node ./dist/server.js",
-    "start": "npm run build:dev && nodemon --watch ./server --watch ./src --exec 'node ./dist/server.js -e ts'"
+    "start": "NODE_ENV=production PORT=3000 node ./dist/server.js",
+    "dev": "NODE_ENV=development PORT=3000 nodemon --watch ./server --watch ./src --watch ./config --exec 'ts-node ./server/index.ts'"
   },
   "author": "wontae Kim",
   "license": "ISC",
@@ -72,7 +72,8 @@
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "redux": "^4.1.1",
-    "three": "^0.132.2"
+    "three": "^0.132.2",
+    "ts-node": "^10.4.0"
   },
   "jest": {
     "moduleNameMapper": {

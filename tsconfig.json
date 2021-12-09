@@ -1,4 +1,9 @@
-{ // intellisense 
+{ // intellisense
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
   "compilerOptions": {
     "lib": [
       "dom",
@@ -9,6 +14,7 @@
     "target": "es5",
     "jsx": "react",
     "moduleResolution": "node",
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,

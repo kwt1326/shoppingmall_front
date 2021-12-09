@@ -74,7 +74,7 @@ const ProductList = (props: any) => {
         (Array.isArray(list) && list.length > 0) ? (
           <Grid
             motionInlineStyle={{
-              gridTemplateColumns: 'repeat(auto-fit, 270px)',
+              gridTemplateColumns: 'repeat(auto-fit, 320px)',
               gridTemplateRows: 'repeat(auto-fit, 370px)',
               gridAutoRows: 'minmax(250px, 270px)',
             }}

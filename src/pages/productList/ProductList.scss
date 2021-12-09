@@ -7,7 +7,7 @@
     @include flex_direction(column);
 
     img {
-      height: 270px;
+      max-height: 300px;
     }
 
     .product_item_short_content {
