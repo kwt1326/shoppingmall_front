@@ -7,8 +7,6 @@
     "build:server": "NODE_ENV=production PORT=3000 webpack --config ./config/webpack.server.config.js",
     "build:client": "NODE_ENV=production PORT=3000 webpack --config ./config/webpack.client.config.js",
     "build:server:dev": "NODE_ENV=development PORT=3000 webpack --config ./config/webpack.server.config.js",
-    "build:client:dev": "NODE_ENV=development PORT=3000 webpack --config ./config/webpack.client.config.js",
-    "build:dev": "npm run build:client:dev && npm run build:server:dev",
     "build": "npm run build:client && npm run build:server",
     "start": "NODE_ENV=production PORT=3000 node ./dist/server.js",
     "dev": "NODE_ENV=development PORT=3000 nodemon --watch ./server --watch ./src --watch ./config --exec 'ts-node ./server/index.ts'"

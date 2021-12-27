@@ -11,23 +11,22 @@ const server = express();
 const port = process.env.PORT || 3000;
 const env = process.env.NODE_ENV;
 
-server.listen(port, () => console.log(`listening ${port} port`));
-
 if (env === 'development') {
   const compiler = webpack(webpackClientConfig);
 
   server.use(webpackDevMiddleware(compiler, {
-    publicPath: webpackClientConfig[0].output.publicPath,
-    writeToDisk: true,
+    publicPath: webpackClientConfig.output.publicPath,
   }));
-  server.use(webpackHotMiddleware(compiler));
+  server.use(webpackHotMiddleware(compiler, {
+    publicPath: webpackClientConfig.output.publicPath,
+  }));
+} else {
+  server.use(express.static(path.resolve(__dirname)));
+
+  server.get('*', (req: express.Request, res: express.Response) => {
+    res.set('content-type', 'text/html')
+    res.send(renderHTML(req));
+  })
 }
 
-server.use(express.static(path.resolve(
-  env === 'development' ? path.join(__dirname, '../dist') : __dirname)
-));
-
-server.get('*', (req: express.Request, res: express.Response) => {
-  res.set('content-type', 'text/html')
-  res.send(renderHTML(req));
-})
+server.listen(port, () => console.log(`listening ${port} port`));
